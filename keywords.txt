@@ -1,0 +1,124 @@
+#######################################
+# Syntax Coloring Map For aRTC
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+rtc_tm	KEYWORD1
+aRTC	KEYWORD1
+i2c_rtc	KEYWORD1
+
+# RTCs
+## EPSON
+rtc8564 	KEYWORD1
+rx8025		KEYWORD1
+
+## MAXIM
+ds1307		KEYWORD1
+
+## NXP
+pcf_common 	KEYWORD1
+pcf2129		KEYWORD1
+pcf8523		KEYWORD1
+
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+# rtc_tm
+rtc_sec		KEYWORD2
+rtc_min		KEYWORD2
+rtc_hour	KEYWORD2
+rtc_wday	KEYWORD2
+rtc_mday	KEYWORD2
+rtc_month	KEYWORD2
+rtc_year	KEYWORD2
+
+# aRTC
+rtc_errno	KEYWORD2
+startRTC	KEYWORD2
+setDateTime	KEYWORD2
+getDateTime	KEYWORD2
+setEpoch	KEYWORD2
+getEpoch	KEYWORD2
+isValid 	KEYWORD2
+resetErrno	KEYWORD2
+
+# aRTC_util
+byte2bcd	KEYWORD2
+bcd2byte	KEYWORD2
+dayofweek	KEYWORD2
+diffULong	KEYWORD2
+
+# i2c_rtc
+setWire		KEYWORD2
+
+# ds1307
+isRunning	KEYWORD2
+halt		KEYWORD2
+restart		KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+# aRTC
+RTC_NOERR	LITERAL1
+RTC_NOFEATURE 	LITERAL1
+RTC_NOT_IMPLEMENTED LITERAL1
+
+RTC_PARAM LITERAL1
+RTC_YEAR  LITERAL1
+RTC_MONTH LITERAL1
+RTC_MDAY  LITERAL1
+RTC_HOUR  LITERAL1
+RTC_MIN   LITERAL1
+RTC_SEC   LITERAL1
+
+
+DEFAULT_STARUP_T LITERAL1
+
+# i2c_rtc
+RTC_I2CERR	LITERAL1
+RTC_I2CW	LITERAL1
+RTC_I2CR	LITERAL1
+
+RTC_I2C_DEBUG0 	LITERAL1
+RTC_I2C_DEBUG1 	LITERAL1
+RTC_I2C_DEBUG2 	LITERAL1
+RTC_I2C_DEBUG3 	LITERAL1
+RTC_I2C_DEBUG4 	LITERAL1
+
+# ds1307
+DS1307_ADDR 	LITERAL1
+DS1307_T_BUF	LITERAL1
+
+# pcf_common
+PCF_COMMON_REG_SEC
+
+# pcf2129
+PCF2129_ADDR		LITERAL1
+PCF2129_T_BUF		LITERAL1
+PCF2129_REG_SEC		LITERAL1
+DEFAULT_STARUP_T	LITERAL1
+
+# pcf8523
+PCF8523_ADDR		LITERAL1
+PCF8523_T_BUF		LITERAL1
+
+PCF8523_REG_Control1	LITERAL1
+PCF8523_REG_Control2	LITERAL1
+PCF8523_REG_Control3	LITERAL1
+PCF8523_REG_SEC		LITERAL1
+
+# rtc8564
+RTC8564_ADDR		LITERAL1
+RTC8564_T_BUF		LITERAL1
+
+# rx8025
+RX8025_ADDR		LITERAL1
+RX8025_T_BUF		LITERAL1
