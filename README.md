@@ -13,10 +13,8 @@ Currently, all supported RTCs are connected to Arduino with I2C(wire) interface.
 ## Test environment
 
 * Development environment
-
-  * Arduino 1.6 or later
+  * Arduino 1.8 or later
 
 * Arduino model
-
   * ESP8266 (ESP-wroom-02)
   
