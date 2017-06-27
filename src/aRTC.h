@@ -42,7 +42,7 @@ struct rtc_tm {  // date&time struct for RTC
 
 class aRTC {
 public:
-  virtual int rtc_errno(){ return _rtc_errno };
+  virtual int rtc_errno(){ return _rtc_errno; };
   bool startRTC();
   bool setDateTime(rtc_tm *d);
   bool setDateTime(int year, uint8_t month, uint8_t mday, uint8_t hour, uint8_t min, uint8_t sec);
