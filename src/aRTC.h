@@ -1,5 +1,5 @@
-//$Id: aRTC.h,v 1.5 2017/06/24 13:33:15 akihiro Exp $
-// aRTC.h
+//
+// aRTC/src/aRTC.h
 
 
 #ifndef __aRTC_H__
@@ -64,11 +64,11 @@ private:
 
   virtual bool _init(){ return true; };
   virtual bool _writeDateTime(rtc_tm *d){
-    rtc_errno = RTC_NOT_IMPLEMENTED;
+    _rtc_errno = RTC_NOT_IMPLEMENTED;
     return false;
   };
   virtual bool _readDateTime(rtc_tm *d){
-    rtc_errno = RTC_NOT_IMPLEMENTED;
+    _rtc_errno = RTC_NOT_IMPLEMENTED;
     return false;
   };
   virtual bool _checkValid(){ return true; };
