@@ -6,7 +6,7 @@
 bool rtc8564::_writeDateTime(rtc_tm *d){
 
   if (d->rtc_year<2001 || d->rtc_year>2099) {
-    rtc_errno = RTC_YEAR;
+    _rtc_errno = RTC_YEAR;
     return false;
   }
 
@@ -15,7 +15,7 @@ bool rtc8564::_writeDateTime(rtc_tm *d){
       (true,  // send STOP bit
        {0x00, // write from registor 00
            0x20})){ // Reg.0: stop clock
-    rtc_errno = RTC_I2CW;
+    _rtc_errno = RTC_I2CW;
     return false;
   }    
 
@@ -31,7 +31,7 @@ bool rtc8564::_writeDateTime(rtc_tm *d){
                                   // Reg.6: set day of week
            byte2bcd(d->rtc_month),       // Reg.7: set month
            byte2bcd(d->rtc_year-2000)})) {     // Reg.8: set year
-    rtc_errno = RTC_I2CW;
+    _rtc_errno = RTC_I2CW;
     return false;
   }    
 
@@ -40,7 +40,7 @@ bool rtc8564::_writeDateTime(rtc_tm *d){
     (true,  // send STOP bit
      {0x00, // write from registor 00
       0x00})){ // Reg.0: start clock
-    rtc_errno = RTC_I2CW;
+    _rtc_errno = RTC_I2CW;
     return false;
   }
   return true;
@@ -54,7 +54,7 @@ bool rtc8564::_readDateTime(rtc_tm *d){
   if (!_writeBytes
       (false, // do not send STOP bit
        {0x02})) { // read from Reg.2
-    rtc_errno = RTC_I2CR;
+    _rtc_errno = RTC_I2CR;
     return false;
   }  
 
@@ -67,7 +67,7 @@ bool rtc8564::_readDateTime(rtc_tm *d){
            &rawWDay,     //. Reg.6 read day of week
            &rawMonth,    // Reg.7 read month & century bit
            &rawYear})) { // Reg. 8 read year
-    rtc_errno = RTC_I2CR;
+    _rtc_errno = RTC_I2CR;
     return false;
   }
 
@@ -97,12 +97,12 @@ bool rtc8564::_checkValid(){
 
   if (! _writeBytes(false,     // do not send stop 
                     {0x02})) { // read from registor 02
-    rtc_errno = RTC_I2CR;
+    _rtc_errno = RTC_I2CR;
     return false;
   }
 
   if (!_readBytes(true, {&result})) {
-    rtc_errno = RTC_I2CR;
+    _rtc_errno = RTC_I2CR;
     return false;
   }
 
@@ -131,7 +131,7 @@ bool rtc8564::_init(){
            0x00, // Reg.D: Clockout disabled
            0x00, // Reg.E: Interval Timer disabled.
            0xFF})) { // Reg.F: Interval Timer cound(max).
-    rtc_errno = RTC_I2CW;
+    _rtc_errno = RTC_I2CW;
     return false;
   }
 
@@ -139,7 +139,7 @@ bool rtc8564::_init(){
       (true, // send STOP bit
        {0x00, // write from registor 00
            0x00})) { // Reg.0: start clock
-    rtc_errno = RTC_I2CW;
+    _rtc_errno = RTC_I2CW;
     return false;
   }
   return true;

@@ -5,7 +5,7 @@
 
 bool rx8025::_writeDateTime(rtc_tm *d){
   if (d->rtc_year<2001 || d->rtc_year>2099) {
-    rtc_errno = RTC_YEAR;
+    _rtc_errno = RTC_YEAR;
     return false;
   }
   return _writeBytes
@@ -26,7 +26,7 @@ bool rx8025::_readDateTime(rtc_tm *d){
   uint8_t rawSec, rawMin, rawHour, rawWDay, rawMDay, rawMonth, rawYear;
 
   if (!_writeBytes(false, {0x00})) { // read from Reg.00
-    rtc_errno = RTC_I2CR;       
+    _rtc_errno = RTC_I2CR;       
     return false;
   }
 
@@ -39,7 +39,7 @@ bool rx8025::_readDateTime(rtc_tm *d){
            &rawMDay,  // Reg.4 day of month
            &rawMonth, // Reg.5 monthy & century bit
            &rawYear})) { // Reg.6 year
-    rtc_errno = RTC_I2CR;
+    _rtc_errno = RTC_I2CR;
     return false;
   }    
 
@@ -66,12 +66,12 @@ bool rx8025::_checkValid(){
   uint8_t reg;
   
   if (!_writeBytes(false, {0x00})) {// read from registor 0F
-    rtc_errno = RTC_I2CR;
+    _rtc_errno = RTC_I2CR;
     return false;
   }
 
   if (!_readBytes(true, {&reg})) {
-    rtc_errno = RTC_I2CR;
+    _rtc_errno = RTC_I2CR;
     return false;
   }
     
@@ -86,7 +86,7 @@ bool rx8025::_init(){
        {0x0E, // write from registor 0E
            0x30, // Reg.0E: Alarm off, 24h mode, /CLEN2=1, Interval Timer off
            0x00})) {// Reg.0F: Vthreshold = 1.3V, VDET=/XST=PON=0, /CLEN1=1, in
-    rtc_errno = RTC_I2CW;
+    _rtc_errno = RTC_I2CW;
     return false;
   }
 
@@ -112,7 +112,7 @@ bool rx8025::_init(){
            // Daily Alarm
            0x00, // Reg.0B: minute
            0x00})) { // Reg.0C: hour
-    rtc_errno = RTC_I2CW;
+    _rtc_errno = RTC_I2CW;
     return false;
   }
   return true;

@@ -28,7 +28,7 @@ bool ds1307::_checkValid(){
 
 bool ds1307::_writeDateTime(rtc_tm *d){
   if (d->rtc_year<2000 || d->rtc_year>2099) {
-    rtc_errno = RTC_YEAR;
+    _rtc_errno = RTC_YEAR;
     return false;
   }
   return _writeBytes
@@ -51,7 +51,7 @@ bool ds1307::isRunning(){
   
   if (!_writeBytes
       (false, {0x00})) {
-    rtc_errno = RTC_I2CW;
+    _rtc_errno = RTC_I2CW;
     return false;
   }
 
@@ -74,7 +74,7 @@ bool ds1307::_setCH(bool ch){
   bool prev;
 
   if (! _writeBytes(false, {0x00})) { // read from Reg.0
-    rtc_errno = RTC_I2CR;
+    _rtc_errno = RTC_I2CR;
     return false;
   }
   if (! _readBytes(true, {&rawSec})) return false;
@@ -94,7 +94,7 @@ bool ds1307::_readDateTime(rtc_tm *d){
   uint8_t rawSec, rawMin, rawHour, rawWDay, rawMDay, rawMonth, rawYear;
 
   if (!_writeBytes(false, {0x00})) {
-    rtc_errno = RTC_I2CR;
+    _rtc_errno = RTC_I2CR;
     return false;
   }
   

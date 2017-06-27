@@ -6,7 +6,7 @@
 bool pcf_common::_writeDateTime(rtc_tm *d){
 
   if (d->rtc_year<2001 || d->rtc_year>2099) {
-    rtc_errno = RTC_YEAR;
+    _rtc_errno = RTC_YEAR;
     return false;
   }
   return _writeBytes
@@ -60,7 +60,7 @@ bool pcf_common::_checkValid(){
   uint8_t reg;
   
   if (!_writeBytes(true, {0x03})){
-    rtc_errno = RTC_I2CR;
+    _rtc_errno = RTC_I2CR;
     return false;
   }
   if (!_readBytes(true, {&reg})) return false;  

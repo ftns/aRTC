@@ -11,7 +11,7 @@ bool aRTC::startRTC(){
 
   if (_valid) return true;
     
-  if (rtc_errno == RTC_NOERR){
+  if (_rtc_errno == RTC_NOERR){
     bool result;
 
     delay(_POR_wait);
@@ -45,11 +45,11 @@ bool aRTC::setDateTime(rtc_tm *d){
    //  d->rtc_year must be checked in _writeDateTime()
 
    if (d->rtc_month<1 || d->rtc_month>12) {
-     rtc_errno = RTC_MONTH;
+     _rtc_errno = RTC_MONTH;
      return false;
    }
    if (d->rtc_mday<1) {
-     rtc_errno = RTC_MDAY;
+     _rtc_errno = RTC_MDAY;
      return false;
    }
    if ((d->rtc_year % 4) == 0) maxFebDay = 29;
@@ -57,24 +57,24 @@ bool aRTC::setDateTime(rtc_tm *d){
   switch (d->rtc_month){
     case 1: case 3: case 5: case 7: case 8: case 10: case 12:
       if (d->rtc_mday > 31) {
-        rtc_errno = RTC_MDAY;
+        _rtc_errno = RTC_MDAY;
         return false;
       }
       break;
     case 4: case 6: case 9: case 11:
       if (d->rtc_mday > 30) {
-        rtc_errno = RTC_MDAY;
+        _rtc_errno = RTC_MDAY;
         return false;
       }
       break;
     case 2:
       if (d->rtc_mday > maxFebDay) {
-        rtc_errno = RTC_MDAY;
+        _rtc_errno = RTC_MDAY;
         return false;
       }
       break;
     default:
-      rtc_errno = RTC_MONTH;
+      _rtc_errno = RTC_MONTH;
       return false;
       break;
   } //switch

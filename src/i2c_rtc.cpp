@@ -6,7 +6,7 @@
 bool i2c_rtc::_waitReadable(unsigned long start){
   while (! _wire.available()){
     if (diffULong(micros(), start)>_timeout) {
-      rtc_errno = RTC_I2CR;
+      _rtc_errno = RTC_I2CR;
       return false;
     };
     delayMicroseconds(10);
@@ -35,7 +35,7 @@ bool i2c_rtc::_writeBytes(bool stopBit, std::initializer_list<const uint8_t> dat
     if (err == 0) {
       return true;
     } else if (err != 2) {
-      rtc_errno = RTC_I2CW;
+      _rtc_errno = RTC_I2CW;
       return false;
     }
 
@@ -43,7 +43,7 @@ bool i2c_rtc::_writeBytes(bool stopBit, std::initializer_list<const uint8_t> dat
     delayMicroseconds(5000); // wait 5msec
   } // while
 
-  rtc_errno = RTC_I2CW;
+  _rtc_errno = RTC_I2CW;
   return false;
 }
 
@@ -60,7 +60,7 @@ bool i2c_rtc::_readBytes(bool stopBit, std::initializer_list<uint8_t *> vars){
     if (_waitReadable(t)) {
       **b = _wire.read();
     } else {
-      rtc_errno = RTC_I2CR;
+      _rtc_errno = RTC_I2CR;
       return false;
     }
   }
