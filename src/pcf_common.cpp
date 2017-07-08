@@ -1,5 +1,5 @@
-//$Id: pcf_common.cpp,v 1.1 2017/06/25 13:45:31 akihiro Exp akihiro $
-// pcf_common.cpp
+//
+// aRTC/src/pcf_common.cpp
 
 #include "pcf_common.h"
 
@@ -58,12 +58,16 @@ bool pcf_common::_readDateTime(rtc_tm *d){
 
 bool pcf_common::_checkValid(){
   uint8_t reg;
-  
+
+#if 0  
   if (!_writeBytes(true, {0x03})){
     _rtc_errno = RTC_I2CR;
     return false;
   }
   if (!_readBytes(true, {&reg})) return false;  
+#endif
+  
+  if (! _cmdReadBytes(0x03, false, {&reg})) return false;
   
   return ((reg & 0x80) == 0) ; // check OSF bite
 }

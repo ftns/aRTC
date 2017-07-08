@@ -1,5 +1,5 @@
-//$Id: ds1307.cpp,v 1.4 2017/06/25 13:45:31 akihiro Exp akihiro $
-// ds1307.cpp
+//
+// aRTC/src/ds1307.cpp
 
 #include "ds1307.h"
 
@@ -48,16 +48,9 @@ bool ds1307::_writeDateTime(rtc_tm *d){
 
 bool ds1307::isRunning(){
   uint8_t reg;
+
+  if (!_cmdReadBytes(0x00, false, {&reg})) return false;
   
-  if (!_writeBytes
-      (false, {0x00})) {
-    _rtc_errno = RTC_I2CW;
-    return false;
-  }
-
-  if (!_readBytes
-      (true, {&reg})) return false;
-
   return ((reg&0x80)==0); // Reg.0: read seconds & CH bit
 }
 
@@ -73,11 +66,8 @@ bool ds1307::_setCH(bool ch){
   uint8_t rawSec;
   bool prev;
 
-  if (! _writeBytes(false, {0x00})) { // read from Reg.0
-    _rtc_errno = RTC_I2CR;
-    return false;
-  }
-  if (! _readBytes(true, {&rawSec})) return false;
+  if (! _cmdReadBytes(0x00, false, {&rawSec})) return false; 
+  
   prev = ((rawSec&0x80) != 0);
   if (prev != ch) {
     if (ch) {
@@ -93,13 +83,9 @@ bool ds1307::_setCH(bool ch){
 bool ds1307::_readDateTime(rtc_tm *d){
   uint8_t rawSec, rawMin, rawHour, rawWDay, rawMDay, rawMonth, rawYear;
 
-  if (!_writeBytes(false, {0x00})) {
-    _rtc_errno = RTC_I2CR;
-    return false;
-  }
-  
-  if (!_readBytes
-      (true,
+  if (!_cmdReadBytes
+      (0x00, // from 0x00
+       false, // stopBit is off
        {&rawSec,// Reg.0: seconds & CH bit
            &rawMin,   // Reg.1 minutes     
            &rawHour,   // Reg.2 hours
@@ -121,6 +107,55 @@ bool ds1307::_readDateTime(rtc_tm *d){
   return ((rawSec & 0x80) == 0); // check CH bit
 }
 
+//
+// nvram
+//
+bool ds1307::nvramWrite(uint8_t addr, uint8_t len, uint8_t *area){
+  if ((addr+len) > 55) {
+    _rtc_errno = RTC_PARAM;
+    return false;
+  }
+  // set first reg. addr.
+  if (! _writeBytes(false, {(addr + DS1307_NVRAM_ADDR)})) 
+    return false;
+
+  return _writeBytes(true, len, area);
+}
+
+//
+bool ds1307::nvramWrite(uint8_t addr, std::initializer_list<const uint8_t> values){
+  uint8_t len = values.size();
+  
+  if ((addr+len) > 55) {
+    _rtc_errno = RTC_PARAM;
+    return false;
+  }
+  // set first reg. addr.
+  if (! _writeBytes(false, {(addr + DS1307_NVRAM_ADDR)})) 
+    return false;
+
+  return _writeBytes(true, values);
+}
+
+//
+bool ds1307::nvramRead(uint8_t addr, uint8_t len, uint8_t *area){
+  if ((addr+len) > 55) {
+    _rtc_errno = RTC_PARAM;
+    return false;
+  }
+  return _cmdReadBytes(addr, false, len, area);
+}
+
+//
+bool ds1307::nvramRead(uint8_t addr, std::initializer_list<uint8_t *> vars){
+  uint8_t len = vars.size();
+    
+  if ((addr+len) > 55) {
+    _rtc_errno = RTC_PARAM;
+    return false;
+  }
+  return _cmdReadBytes(addr, false, vars);
+}
 
 // end of DS1307.cpp
 //

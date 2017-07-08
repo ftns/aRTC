@@ -16,6 +16,7 @@
 #define RTC_NOERR 0
 #define RTC_NOFEATURE 1
 #define RTC_NOT_IMPLEMENTED 2
+#define RTC_ERR 3
 
 #define RTC_PARAM 0x10
 #define RTC_YEAR  0x11
@@ -25,6 +26,18 @@
 #define RTC_MIN   0x15
 #define RTC_SEC   0x16
 
+#define RTC_IO 0x20
+#define RTC_W  0x21
+#define RTC_R  0x22
+
+#define RTC_DEBUG0 0x30
+#define RTC_DEBUG1 0x31
+#define RTC_DEBUG2 0x32
+#define RTC_DEBUG3 0x33
+#define RTC_DEBUG4 0x34
+#define RTC_DEBUG5 0x35
+#define RTC_DEBUG6 0x36
+#define RTC_DEBUG7 0x37
 
 struct rtc_tm {  // date&time struct for RTC
   uint8_t rtc_sec;   // seconds [0..59]
@@ -37,8 +50,7 @@ struct rtc_tm {  // date&time struct for RTC
 };
 //< NOTICE:
 // The range of rtc_year may depend on RTC chip.
-// RTC8564: 2001..2099
-// DS1307:  2000..2100(2099?)
+// However, almost all RTCs are 2001-2099.
 
 class aRTC {
 public:
@@ -54,6 +66,7 @@ public:
     return _valid;
   };
   virtual bool resetErrno(){ _rtc_errno = RTC_NOERR;};
+  void setPORwait(uint16_t t) { _POR_wait = t; };
 
 protected:
   uint16_t _POR_wait = 0; // msec.

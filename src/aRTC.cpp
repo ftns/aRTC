@@ -1,5 +1,5 @@
-//$Id: aRTC.cpp,v 1.6 2017/06/25 13:45:31 akihiro Exp akihiro $
-// aRTC.cpp
+//
+// src/aRTC/aRTC.cpp
 
 #include "aRTC.h"
 #include <time.h>

@@ -70,15 +70,14 @@ const char *DayOfW [] ={"Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"};
 
 void loop() {
   struct rtc_tm d;
-  char buf[32];
 
   rtc.getDateTime(&d);
   // print date
   Serial.printf("%d/%d/%d %s ",
-		d.rtc_year, d.rtc_month, d.rtc_mday, DayOfW[d.rtc_wday]);
+                d.rtc_year, d.rtc_month, d.rtc_mday, DayOfW[d.rtc_wday]);
   // print time
   Serial.printf("%02d:%02d:%02d\n",
-		d.rtc_hour, d.rtc_min, d.rtc_sec);
+                d.rtc_hour, d.rtc_min, d.rtc_sec);
 
   delay(100); // sleep 100ms
 }

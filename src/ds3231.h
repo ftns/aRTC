@@ -24,15 +24,13 @@ public:
     _t_buf = DS3231_T_BUF;
   };
   ds3231(uint16_t POR_wait){
+    ds3231();
     _POR_wait = POR_wait;
-    _addr = DS3231_ADDR;
-    _t_buf = DS3231_T_BUF;
   };
   ds3231(uint16_t POR_wait, uint32_t I2C_timeout){
-    _timeout = I2C_timeout;
+    ds3231();
     _POR_wait = POR_wait;
-    _addr = DS3231_ADDR;
-    _t_buf = DS3231_T_BUF;
+    _timeout = I2C_timeout;
   };  
 
   bool getRTCtemp(int *t);

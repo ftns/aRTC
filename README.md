@@ -7,8 +7,8 @@ aRTC is an abstruct RTC Class and library classes of RTCs for Arduino.
 Currently, all supported RTCs are connected to Arduino with I2C(wire) interface.
 
   * EPSON: RX8025, RTC8564
-  * MAXIM: DS1307, (now working on DS3231)
-  * NXP:   PCF8523, PCF2129, 
+  * MAXIM: DS1307, DS3231
+  * NXP:   PCF8523, PCF2129 
 
 ## Test environment
 
@@ -16,5 +16,5 @@ Currently, all supported RTCs are connected to Arduino with I2C(wire) interface.
   * Arduino 1.8 or later
 
 * Arduino model
-  * ESP8266 (ESP-wroom-02)
+  * ESP8266 (ESP-WROOM-02)
   

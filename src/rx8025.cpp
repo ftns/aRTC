@@ -1,5 +1,5 @@
-//$Id: rx8025.cpp,v 1.3 2017/06/25 13:45:31 akihiro Exp akihiro $
-// rx8025.cpp
+//
+// aRTC/src/rx8025.cpp
 
 #include "rx8025.h"
 
@@ -25,13 +25,9 @@ bool rx8025::_writeDateTime(rtc_tm *d){
 bool rx8025::_readDateTime(rtc_tm *d){
   uint8_t rawSec, rawMin, rawHour, rawWDay, rawMDay, rawMonth, rawYear;
 
-  if (!_writeBytes(false, {0x00})) { // read from Reg.00
-    _rtc_errno = RTC_I2CR;       
-    return false;
-  }
-
-  if (!_readBytes
-      (true, 
+  if (!_cmdReadBytes
+      (0x00, // read from Reg.00
+       false, 
        {&rawSec,      // Reg.0: seconds
            &rawMin,   // Reg.1 minutes
            &rawHour,  // Reg.2 hours
@@ -39,7 +35,7 @@ bool rx8025::_readDateTime(rtc_tm *d){
            &rawMDay,  // Reg.4 day of month
            &rawMonth, // Reg.5 monthy & century bit
            &rawYear})) { // Reg.6 year
-    _rtc_errno = RTC_I2CR;
+    // _rtc_errno = RTC_I2CR;
     return false;
   }    
 
@@ -65,15 +61,8 @@ bool rx8025::_readDateTime(rtc_tm *d){
 bool rx8025::_checkValid(){
   uint8_t reg;
   
-  if (!_writeBytes(false, {0x00})) {// read from registor 0F
-    _rtc_errno = RTC_I2CR;
-    return false;
-  }
-
-  if (!_readBytes(true, {&reg})) {
-    _rtc_errno = RTC_I2CR;
-    return false;
-  }
+  // read from registor 0F (Control 2)
+  if (!_cmdReadBytes(0x0F, false, {&reg})) return false;
     
   return ((reg & 0x30) == 0x20); // /XST=1 & PON = 0
 }
@@ -86,7 +75,7 @@ bool rx8025::_init(){
        {0x0E, // write from registor 0E
            0x30, // Reg.0E: Alarm off, 24h mode, /CLEN2=1, Interval Timer off
            0x00})) {// Reg.0F: Vthreshold = 1.3V, VDET=/XST=PON=0, /CLEN1=1, in
-    _rtc_errno = RTC_I2CW;
+    // _rtc_errno = RTC_I2CW;
     return false;
   }
 
@@ -112,12 +101,11 @@ bool rx8025::_init(){
            // Daily Alarm
            0x00, // Reg.0B: minute
            0x00})) { // Reg.0C: hour
-    _rtc_errno = RTC_I2CW;
+    // _rtc_errno = RTC_I2CW;
     return false;
   }
   return true;
 }
-
 
 // end of rx8025.cpp
 //

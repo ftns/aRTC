@@ -1,4 +1,5 @@
-//$Id: aRTC_util.h,v 1.2 2017/06/24 13:33:15 akihiro Exp $
+//
+// aRTC/src/aRTC_util.h
 
 #include <stdint.h>
 
@@ -12,7 +13,7 @@ extern "C" {
   extern uint8_t byte2bcd(uint8_t b);
   extern uint8_t bcd2byte(uint8_t b);
   extern uint8_t dayofweek(int y, int m, int d);
-  extern unsigned long diffULong(unsigned long x, unsigned long y);  
+  //  extern unsigned long diffULong(unsigned long x, unsigned long y);  
 
 #ifdef __cplusplus
 }
