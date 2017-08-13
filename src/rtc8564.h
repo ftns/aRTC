@@ -1,5 +1,9 @@
 //
-// aRTC/src/rtc8564.h
+// aRTC/src/rtc8564.h v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #ifndef __RTC8564_H__
 #define __RTC8564_H__
@@ -19,16 +23,6 @@ public:
     setADDR(RTC8564_ADDR);
     setT_BUF(RTC8564_T_BUF);
   }
-  rtc8564(uint16_t POR_wait){
-    rtc8564();
-    setPORwait(POR_wait);
-  }
-  rtc8564(uint16_t POR_wait, uint32_t I2C_timeout){
-    rtc8564();
-    setPORwait(POR_wait);
-    setTimeout(I2C_timeout);
-  }
-
 private:
   bool _writeDateTime(rtc_tm *d);
   bool _readDateTime(rtc_tm *d);

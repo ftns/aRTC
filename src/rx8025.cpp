@@ -1,5 +1,9 @@
 //
-// aRTC/src/rx8025.cpp
+// aRTC/src/rx8025.cpp v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #include "rx8025.h"
 

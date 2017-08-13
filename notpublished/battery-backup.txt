@@ -1,0 +1,7 @@
+Some RTCs (like EPSON RX8025, RTC8564) do not have this feature.
+My solution is:
+
+Vcc ---Diode-+
+             |
+Vbatt--Diode-+---RTC
+

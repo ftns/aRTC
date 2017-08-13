@@ -1,5 +1,9 @@
 //
-// aRTC/src/i2cDevice.h
+// aRTC/src/i2cDevice.h v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #ifndef __I2C_DEVICE_H__
 #define __I2C_DEVICE_H__
@@ -22,6 +26,8 @@
 #define I2C_DEV_DEBUG5 0xF5
 #define I2C_DEV_DEBUG6 0xF6
 #define I2C_DEV_DEBUG7 0xF7
+
+//#define I2CwRetry 1 // retry I2C write when address error occures
 
 class i2cDevice {
 public:
@@ -58,6 +64,9 @@ protected:
   bool _cmdReadBytes(uint8_t cmd, bool stopBit, std::initializer_list<uint8_t *> vars);
   bool _cmdReadBytes(uint8_t cmd, bool stopBit, uint8_t nbytes, uint8_t *area);
 
+  bool _cmdWriteBytes(uint8_t cmd, uint8_t nbytes, uint8_t *area);
+  bool _cmdWriteBytes(uint8_t cmd, std::initializer_list<const uint8_t> data);
+  
   // error handling
   void setErr(int err) {
     _i2c_errno = err;

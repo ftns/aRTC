@@ -1,7 +1,11 @@
 //
-// aRTC/src/aRTC_util.c
-#include "aRTC_util.h"
+// aRTC/src/aRTC_util.c v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
+#include "aRTC_util.h"
 
 uint8_t bcd2byte(uint8_t b) {
   return ((b & 0xf0) >> 4)*10 + (b & 0x0f);

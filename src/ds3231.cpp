@@ -1,11 +1,15 @@
 //
-// aRTC/src/ds3231.cpp
+// aRTC/src/ds3231.cpp v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #include "ds3231.h"
 
 bool ds3231::_init(){
   //  STAT_REG: clear all(OSF, EN32kHz, A2F, A1F);
-  if (! _writeBytes(true, DS3231_STAT_REG, {0})) return false;
+  return _writeBytes(true, {DS3231_STAT_REG, 0x00});
 }
 
 bool ds3231::_checkValid(){
@@ -13,7 +17,9 @@ bool ds3231::_checkValid(){
 
   // check OSF bit(DS3231_STAT_REG bit 7), 
 
-  if (! _cmdReadBytes(DS3231_STAT_REG, false, {&reg})) return false;
+  if (! _cmdReadBytes(DS3231_STAT_REG, false, {&reg})) {
+    return false;
+  }
   return ((reg & 0x80) == 0);
 }
 

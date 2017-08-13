@@ -1,5 +1,9 @@
 //
-// src/aRTC/aRTC.cpp
+// src/aRTC/aRTC.cpp v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #include "aRTC.h"
 #include <time.h>

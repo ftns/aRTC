@@ -1,5 +1,9 @@
 // 
-// aRTC/src/pcf_common.h
+// aRTC/src/pcf_common.h v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #ifndef __PCF_COMMON_H__
 #define __PCF_COMMON_H__

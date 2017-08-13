@@ -1,5 +1,9 @@
 // 
-// aRTC/src/ds3231.h
+// aRTC/src/ds3231.h v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #ifndef __DS3231_H__
 #define __DS3231_H__
@@ -20,18 +24,9 @@ class ds3231 : public i2c_rtc {
 public:
   ds3231(){
     _POR_wait = 0;
-    _addr = DS3231_ADDR;
-    _t_buf = DS3231_T_BUF;
+    _setADDR(DS3231_ADDR);
+    _setT_BUF(DS3231_T_BUF);
   };
-  ds3231(uint16_t POR_wait){
-    ds3231();
-    _POR_wait = POR_wait;
-  };
-  ds3231(uint16_t POR_wait, uint32_t I2C_timeout){
-    ds3231();
-    _POR_wait = POR_wait;
-    _timeout = I2C_timeout;
-  };  
 
   bool getRTCtemp(int *t);
   bool getRTCtemp(float *t);

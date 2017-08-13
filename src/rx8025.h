@@ -1,5 +1,9 @@
 //
-// aRTC/src/rx8025.h
+// aRTC/src/rx8025.h v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #ifndef __RX8025_H__
 #define __RX8025_H__
@@ -19,16 +23,6 @@ public:
     setADDR(RX8025_ADDR);
     setT_BUF(RX8025_T_BUF);
   }
-  rx8025(uint16_t POR_wait){
-    rx8025();
-    setPORwait(POR_wait);
-  }
-  rx8025(uint16_t POR_wait, uint32_t I2C_timeout){
-    rx8025();
-    setPORwait(POR_wait);
-    setTimeout(I2C_timeout);
-  }
-
 private:
   bool _writeDateTime(rtc_tm *d);
   bool _readDateTime(rtc_tm *d);

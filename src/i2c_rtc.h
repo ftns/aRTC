@@ -1,5 +1,9 @@
 //
-// aRTC/src/i2c_rtc.h
+// aRTC/src/i2c_rtc.h v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #ifndef __I2C_RTC_H__
 #define __I2C_RTC_H__

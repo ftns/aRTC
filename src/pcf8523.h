@@ -1,5 +1,9 @@
 //
-// aRTC/src/pcf8523.h
+// aRTC/src/pcf8523.h v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #ifndef __PCF8523_H__
 #define __PCF8523_H__
@@ -23,16 +27,6 @@ public:
     setADDR(PCF8523_ADDR);
     setT_BUF(PCF8523_T_BUF);
   }
-  pcf8523(uint16_t POR_wait){
-    pcf8523();
-    setPORwait(POR_wait);
-  }
-  pcf8523(uint16_t POR_wait, uint32_t I2C_timeout){
-    pcf8523();
-    setPORwait(POR_wait);
-    setTimeout(I2C_timeout);
-  }
-
 private:
   bool _init();
 };

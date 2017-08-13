@@ -1,5 +1,9 @@
 //
-// aRTC/src/ds1307.cpp
+// aRTC/src/ds1307.cpp v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #include "ds1307.h"
 
@@ -110,51 +114,53 @@ bool ds1307::_readDateTime(rtc_tm *d){
 //
 // nvram
 //
-bool ds1307::nvramWrite(uint8_t addr, uint8_t len, uint8_t *area){
-  if ((addr+len) > 55) {
+bool ds1307::nvramWrite(uint8_t r_addr, uint8_t len, uint8_t *area){
+  if (len == 0) return true;
+  if ((len+r_addr) > DS1307_NVRAM_LEN) {
     _rtc_errno = RTC_PARAM;
     return false;
   }
   // set first reg. addr.
-  if (! _writeBytes(false, {(addr + DS1307_NVRAM_ADDR)})) 
-    return false;
+  r_addr += DS1307_NVRAM_ADDR;
 
-  return _writeBytes(true, len, area);
+  return _cmdWriteBytes(r_addr, len, area);
 }
 
-//
-bool ds1307::nvramWrite(uint8_t addr, std::initializer_list<const uint8_t> values){
+bool ds1307::nvramWrite(uint8_t r_addr, std::initializer_list<const uint8_t> values){
   uint8_t len = values.size();
-  
-  if ((addr+len) > 55) {
+  if (len == 0) return true;
+  if ((len+r_addr) > DS1307_NVRAM_LEN) {
     _rtc_errno = RTC_PARAM;
     return false;
   }
   // set first reg. addr.
-  if (! _writeBytes(false, {(addr + DS1307_NVRAM_ADDR)})) 
-    return false;
-
-  return _writeBytes(true, values);
+  r_addr += DS1307_NVRAM_ADDR;
+  return _cmdWriteBytes(r_addr, values);
 }
 
 //
-bool ds1307::nvramRead(uint8_t addr, uint8_t len, uint8_t *area){
-  if ((addr+len) > 55) {
+bool ds1307::nvramRead(uint8_t r_addr, uint8_t len, uint8_t *area){  
+  if (len == 0) return true;    
+  if ((len+r_addr) > DS1307_NVRAM_LEN) {
     _rtc_errno = RTC_PARAM;
     return false;
   }
-  return _cmdReadBytes(addr, false, len, area);
+
+  r_addr += DS1307_NVRAM_ADDR;
+  return _cmdReadBytes(r_addr, false, len, area);
 }
 
 //
-bool ds1307::nvramRead(uint8_t addr, std::initializer_list<uint8_t *> vars){
+bool ds1307::nvramRead(uint8_t r_addr, std::initializer_list<uint8_t *> vars){
   uint8_t len = vars.size();
-    
-  if ((addr+len) > 55) {
+  if (len == 0) return true;    
+  if ((r_addr+len) > DS1307_NVRAM_LEN) {
     _rtc_errno = RTC_PARAM;
     return false;
   }
-  return _cmdReadBytes(addr, false, vars);
+
+  r_addr += DS1307_NVRAM_ADDR;
+  return _cmdReadBytes(r_addr, false, vars);
 }
 
 // end of DS1307.cpp

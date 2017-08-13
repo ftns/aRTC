@@ -1,5 +1,9 @@
 //
-// aRTC/src/i2cDevice_util.h
+// aRTC/src/i2cDevice_util.h v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #include <stdint.h>
 

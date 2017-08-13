@@ -1,5 +1,9 @@
 //
-// aRTC/src/pcf8523.cpp
+// aRTC/src/pcf8523.cpp v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #include "pcf8523.h"
 

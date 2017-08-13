@@ -1,6 +1,9 @@
 //
-// aRTC/src/aRTC.h
-
+// aRTC/src/aRTC.h v1.0
+//
+// Original source is written by Akihiro SHIMIZU.
+// This source is published under license of LGPL v.3
+//
 
 #ifndef __aRTC_H__
 #define __aRTC_H__
@@ -65,7 +68,10 @@ public:
   bool isValid(){
     return _valid;
   };
-  virtual bool resetErrno(){ _rtc_errno = RTC_NOERR;};
+  virtual bool resetErrno(){
+    _rtc_errno = RTC_NOERR;
+    return true;
+  };
   void setPORwait(uint16_t t) { _POR_wait = t; };
 
 protected:
