@@ -3,7 +3,7 @@ aRTC is an abstruct RTC Class and library classes of RTCs for Arduino.
 
 ## Features
 * All RTCs are subclass of aRTC, so you don't bother with differences between RTCs. (except specific feature dependes on each RTC.)
-* Almost all errors are handled. So you can improve your code more reliable. Also, you can ignore errors for your conveniencs. (However, I STRONGLY recommend check errors.)
+* Almost all errors are handled. So you can improve your code more reliable. Also, you can ignore errors for your convenience. (However, I STRONGLY recommend check errors.)
 * You can handle NTP easilly with aRTC::SetEpoch().
 
 ## Supported RTCs:
